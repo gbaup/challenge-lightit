@@ -1,0 +1,11 @@
+services:
+  db:
+    image: mysql
+    container_name: mysql-lightit
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: challenge
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+      - "5678:3306"
