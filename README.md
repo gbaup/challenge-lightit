@@ -47,7 +47,7 @@
 
 ### 🖼️ Capturas de pantalla
 
-(Opcional) Incluye imágenes o gifs para mostrar funcionalidades clave.
+Puedes encontrar las capturas de pantalla [aquí](./assets/screenshots).
 
 ---
 
