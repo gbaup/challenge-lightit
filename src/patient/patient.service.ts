@@ -1,27 +1,30 @@
-import {Injectable} from '@nestjs/common';
-import {CreatePatientDto} from './dto/create-patient.dto';
-import {UpdatePatientDto} from './dto/update-patient.dto';
-import {InjectRepository} from '@nestjs/typeorm';
-import {Repository} from 'typeorm';
-import {Patient} from './entities/patient.entity';
+import { Injectable } from '@nestjs/common';
+import { CreatePatientDto } from './dto/create-patient.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Patient } from './entities/patient.entity';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class PatientService {
-    constructor(
-        @InjectRepository(Patient)
-        private readonly patientRepository: Repository<Patient>
-    ) {
-    }
+  constructor(
+    private readonly mailService: MailService,
+    @InjectRepository(Patient)
+    private readonly patientRepository: Repository<Patient>,
+  ) {}
 
-    async create(createPatientDto: CreatePatientDto) {
-        const patient = this.patientRepository.create(createPatientDto);
-        await this.patientRepository.save(patient);
-        return patient;
-    }
+  async create(createPatientDto: CreatePatientDto) {
+    const patient = this.patientRepository.create(createPatientDto);
+    await this.patientRepository.save(patient);
+    await this.mailService.sendConfirmationEmail(
+      createPatientDto.email,
+      'Welcome to our platform!',
+      'You have successfully registered.',
+    );
+    return patient;
+  }
 
-    async findAll() {
-        console.log('service: findAll()');
-        return this.patientRepository.find();
-    }
-
+  async findAll() {
+    return this.patientRepository.find();
+  }
 }
