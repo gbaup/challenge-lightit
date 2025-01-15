@@ -5,7 +5,6 @@ import {PatientModule} from './patient/patient.module';
 import {MailModule} from './mail/mail.module';
 
 @Module({
-
     imports: [
         ConfigModule.forRoot(),
         TypeOrmModule.forRoot({
