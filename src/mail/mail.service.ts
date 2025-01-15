@@ -28,6 +28,11 @@ export class MailService {
       text,
     };
 
-    await this.transporter.sendMail(mailOptions);
+    // La capa gratuita de Mailtrap solo permite enviar correos a la dirección de correo electrónico que se ha registrado.
+    try {
+      await this.transporter.sendMail(mailOptions);
+    } catch (error) {
+      console.error('Error al enviar un mail: ', error);
+    }
   }
 }

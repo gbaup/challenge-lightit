@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -15,16 +19,27 @@ export class PatientService {
 
   async create(createPatientDto: CreatePatientDto) {
     const patient = this.patientRepository.create(createPatientDto);
-    await this.patientRepository.save(patient);
-    await this.mailService.sendConfirmationEmail(
-      createPatientDto.email,
-      'Welcome to our platform!',
-      'You have successfully registered.',
-    );
-    return patient;
+    try {
+      await this.patientRepository.save(patient);
+      await this.mailService.sendConfirmationEmail(
+        createPatientDto.email,
+        'Welcome to our platform!',
+        'You have successfully registered.',
+      );
+      return patient;
+    } catch (error) {
+      this.handleExceptions(error);
+    }
   }
 
   async findAll() {
     return this.patientRepository.find();
+  }
+
+  private handleExceptions(error: any) {
+    if (error.errno === 1062) {
+      throw new BadRequestException(`Email already exists`);
+    }
+    throw new InternalServerErrorException(error);
   }
 }

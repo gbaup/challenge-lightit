@@ -1,24 +1,22 @@
-import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Patient {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @PrimaryGeneratedColumn('uuid')
-    id: number;
+  @Column('text')
+  name: string;
 
-    @Column('text')
-    name: string;
+  @Column({ type: 'varchar', length: 255, unique: true })
+  email: string;
 
-    @Column('text')
-    email: string;
+  @Column('text')
+  address: string;
 
-    @Column('text')
-    address: string;
+  @Column('text')
+  phone: string;
 
-    @Column('text')
-    phone: string;
-
-    @Column('text')
-    photo: string;
-
+  @Column('text')
+  photo: string;
 }
