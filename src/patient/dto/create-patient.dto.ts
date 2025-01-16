@@ -15,7 +15,4 @@ export class CreatePatientDto {
   @IsNotEmpty()
   @IsPhoneNumber()
   phone: string;
-
-  @IsRequiredString()
-  photo: string;
 }

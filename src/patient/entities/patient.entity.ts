@@ -18,5 +18,5 @@ export class Patient {
   phone: string;
 
   @Column('text')
-  photo: string;
+  photo: string = '';
 }
