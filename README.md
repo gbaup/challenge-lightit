@@ -25,14 +25,9 @@
    ```
 
 2. Configurar variables de entorno:
-    - Renombrar el archivo `.env.example` a `.env` y configurar los valores necesarios:
-      ```env
-      DB_HOST=localhost
-      DB_PORT=5678
-      DB_USER=admin
-      DB_PASSWORD=admin
-      DB_NAME=challenge
-      ```
+    - Renombrar el archivo `.env.example` a `.env` y configurar los valores necesarios (serán enviados por mail los que
+      fueron utilizados al momento de realizar el challenge).
+
 
 3. Construir y levantar los contenedores Docker:
    ```bash
@@ -44,7 +39,6 @@
 
 ---
 
-
 ### 🖼️ Capturas de pantalla
 
 Puedes encontrar las capturas de pantalla [aquí](./assets/screenshots).
@@ -53,8 +47,29 @@ Puedes encontrar las capturas de pantalla [aquí](./assets/screenshots).
 
 ### 📖 Documentación de la API
 
-(Opcional) Describe las rutas principales o incluye un enlace a la documentación Swagger:
-> La documentación completa de la API está disponible en: `http://localhost:3000/api`.
+Al ser una API con pocos endpoints (un único controlador), se documentarán los mismos a continuación (no se utiliza
+Swagger):
+
+1. **GET /patient** - Listar pacientes
+    - **Respuesta exitosa:**
+        - `200 OK` - Lista de productos.
+    - **Respuesta de error:**
+        - `500 Internal Server Error` - Error del servidor.
+
+
+2. **POST /patient** - Crear paciente
+    - **Parámetros:**
+        - `name` - Nombre del paciente.
+        - `email` - Correo electrónico del paciente.
+        - `phone` - Teléfono del paciente.
+        - `address` - Dirección del paciente.
+        - `photo` - Foto del paciente (opcional, archivo).
+
+    - **Respuesta exitosa:**
+        - `201 Created` - Paciente creado.
+    - **Respuesta de error:**
+        - `400 Bad Request` - Parámetros inválidos.
+        - `500 Internal Server Error` - Error del servidor.
 
 ---
 
